@@ -1,0 +1,71 @@
+service: aws-sls-nodejs-users
+
+custom:
+  tableName: 'users-afiliados-${self:provider.stage}'
+  sqsUrlAfiliados: 'https://sqs.us-east-1.amazonaws.com/436132033967/SQSQueue1'
+  dynamodb:
+    stages:
+      - dev
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  stage: dev
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
+  environment:
+    USERS_AFILIADOS_TABLE: ${self:custom.tableName}
+    SQS_URL_AFILIADOS: ${self:custom.sqsUrlAfiliados}
+  iamManagedPolicies:
+    - 'arn:aws:iam::aws:policy/AmazonSQSFullAccess'
+
+functions:
+  beneficiary:
+    handler: beneficiary/beneficiary.saveSolicitude
+    events:
+      - http:
+          path: saveSolicitude
+          method: post
+  notification:
+    handler: notification/notification.notification
+  
+
+resources:
+  Resources:
+    UsersDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
