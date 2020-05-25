@@ -55,7 +55,7 @@ module.exports.notification = (event, context, callback) => {
 
 
     function sendEmail(result) {
-        const { userId, beneficiary, email, amount, createdAt } = result.Item;
+        const { userId, beneficiary, DNI, email, account, amount, createdAt } = result.Item;
         console.log("beneficiary : ", beneficiary);
 
         //send email notification
@@ -67,7 +67,7 @@ module.exports.notification = (event, context, callback) => {
             </head>
             <body>
                 <p>Hola, ${beneficiary} : </p>
-                <p>Su registro de solicitud ha sido registrada satisfactoriamente. </p>
+                <p>Su registro de solicitud ha sido registrada satisfactoriamente. </p>               
                 </p>
                 <p>Importe solicitado: ${amount} </p>
             </body>
@@ -86,7 +86,7 @@ module.exports.notification = (event, context, callback) => {
                     }
                 },
                 Subject: {
-                    Data: "Recepcion de solicitud aceptada"
+                    Data: "Recepción de solicitud aceptada"
                 }
             },
             Source: "lmgomez.saavedra@gmail.com"

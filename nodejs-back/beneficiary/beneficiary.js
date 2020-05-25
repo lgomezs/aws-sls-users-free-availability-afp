@@ -43,8 +43,12 @@ module.exports.saveSolicitude = (event, context, callback) => {
     Item: {
       'userId': uuid.v1(),
       'beneficiary': data.beneficiary,
+      'dni': data.DNI,
+      'checkDigit': data.DcheckDigitNI,  
+      'birthday': data.birthday,       
       'email': data.email,
       'amount': data.amount,
+      'account': data.account,
       'createdAt': timestamp,
       'updatedAt': timestamp
     },
