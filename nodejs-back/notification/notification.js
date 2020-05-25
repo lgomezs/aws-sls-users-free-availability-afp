@@ -69,7 +69,7 @@ module.exports.notification = (event, context, callback) => {
                 <p>Hola, ${beneficiary} : </p>
                 <p>Su registro de solicitud ha sido registrada satisfactoriamente. </p>               
                 </p>
-                <p>Importe solicitado: ${amount} </p>
+                <p>Importe solicitado:  ${amount} </p>
             </body>
             </html>`;
 
