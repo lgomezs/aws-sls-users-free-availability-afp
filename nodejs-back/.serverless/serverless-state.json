@@ -200,7 +200,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-sls-nodejs-users/dev/1590433711662-2020-05-25T19:08:31.662Z/aws-sls-nodejs-users.zip"
+                "S3Key": "serverless/aws-sls-nodejs-users/dev/1590447021427-2020-05-25T22:50:21.427Z/aws-sls-nodejs-users.zip"
               },
               "FunctionName": "aws-sls-nodejs-users-dev-beneficiary",
               "Handler": "beneficiary/beneficiary.saveSolicitude",
@@ -225,14 +225,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "BeneficiaryLambdaVersiontJO0XNqrRY0gfrKWbuEyCL97Ar225XwZd1i89kqK2YY": {
+          "BeneficiaryLambdaVersionwqnmtAxwkstHr5gWnoO6EPjMne3GlXgjhB1cT0mE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BeneficiaryLambdaFunction"
               },
-              "CodeSha256": "jElN8sFGQeT+bDlhjQIrNTMpPg0Tktcbv0UcIlcCsVU="
+              "CodeSha256": "9qVAlKFT2bTk7watiaq/RQzo5qqjlXqw27i1xo6SVzc="
             }
           },
           "NotificationLambdaFunction": {
@@ -242,7 +242,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/aws-sls-nodejs-users/dev/1590433711662-2020-05-25T19:08:31.662Z/aws-sls-nodejs-users.zip"
+                "S3Key": "serverless/aws-sls-nodejs-users/dev/1590447021427-2020-05-25T22:50:21.427Z/aws-sls-nodejs-users.zip"
               },
               "FunctionName": "aws-sls-nodejs-users-dev-notification",
               "Handler": "notification/notification.notification",
@@ -267,14 +267,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "NotificationLambdaVersionXuely7U1XL7FMx2ZNA2pMHf0yYIabHdjGHR6rzATta4": {
+          "NotificationLambdaVersion7ADnQ03lF29E49fQBffItSFqlfpokKcTX2ymuANdm3I": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "NotificationLambdaFunction"
               },
-              "CodeSha256": "jElN8sFGQeT+bDlhjQIrNTMpPg0Tktcbv0UcIlcCsVU="
+              "CodeSha256": "9qVAlKFT2bTk7watiaq/RQzo5qqjlXqw27i1xo6SVzc="
             }
           },
           "ApiGatewayRestApi": {
@@ -347,7 +347,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1590433704757": {
+          "ApiGatewayDeployment1590447014854": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -428,13 +428,13 @@
           "BeneficiaryLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BeneficiaryLambdaVersiontJO0XNqrRY0gfrKWbuEyCL97Ar225XwZd1i89kqK2YY"
+              "Ref": "BeneficiaryLambdaVersionwqnmtAxwkstHr5gWnoO6EPjMne3GlXgjhB1cT0mE"
             }
           },
           "NotificationLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "NotificationLambdaVersionXuely7U1XL7FMx2ZNA2pMHf0yYIabHdjGHR6rzATta4"
+              "Ref": "NotificationLambdaVersion7ADnQ03lF29E49fQBffItSFqlfpokKcTX2ymuANdm3I"
             }
           },
           "ServiceEndpoint": {
@@ -563,7 +563,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "BeneficiaryLambdaVersiontJO0XNqrRY0gfrKWbuEyCL97Ar225XwZd1i89kqK2YY"
+        "versionLogicalId": "BeneficiaryLambdaVersionwqnmtAxwkstHr5gWnoO6EPjMne3GlXgjhB1cT0mE"
       },
       "notification": {
         "handler": "notification/notification.notification",
@@ -574,7 +574,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "NotificationLambdaVersionXuely7U1XL7FMx2ZNA2pMHf0yYIabHdjGHR6rzATta4"
+        "versionLogicalId": "NotificationLambdaVersion7ADnQ03lF29E49fQBffItSFqlfpokKcTX2ymuANdm3I"
       }
     },
     "resources": {
@@ -607,10 +607,10 @@
     "serviceFilename": "serverless.yml",
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/home/miguel/EVERIS/Presentaciones/aws/aws-sls-nodejs-users/.serverless/aws-sls-nodejs-users.zip"
+    "artifact": "/home/miguel/EVERIS/Presentaciones/aws/aws-sls-nodejs-users/nodejs-back/.serverless/aws-sls-nodejs-users.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/aws-sls-nodejs-users/dev/1590433711662-2020-05-25T19:08:31.662Z",
+    "artifactDirectoryName": "serverless/aws-sls-nodejs-users/dev/1590447021427-2020-05-25T22:50:21.427Z",
     "artifact": "aws-sls-nodejs-users.zip"
   }
 }
