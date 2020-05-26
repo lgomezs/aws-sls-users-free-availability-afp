@@ -11,19 +11,12 @@ plugins:
   - serverless-offline
   - serverless-dynamodb-local
 
-
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
-
 provider:
   name: aws
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   runtime: nodejs12.x
+  apiKeys:
+    - ${file(./config.${self:provider.stage}.json):API_KEY}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -48,6 +41,7 @@ functions:
       - http:
           path: saveSolicitude
           method: post
+          private: true
   notification:
     handler: notification/notification.notification
   
