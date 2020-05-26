@@ -17,6 +17,7 @@ Este modelo ejemplo de aplicacion recibe una peticion POST, para procesar los tr
 ## Servicios de azure utilizados:
 
     - API GATEWAY
+    - Claves para API KEY (seguridad endpoint)
     - lambdas desarrollados en nodejs
     - SQS (Simple Queue Service)
     - SNS (Simple Notification Service)
