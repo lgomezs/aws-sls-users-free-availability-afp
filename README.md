@@ -22,6 +22,7 @@ Este modelo ejemplo de aplicacion recibe una peticion POST, para procesar los tr
     - SQS (Simple Queue Service)
     - SNS (Simple Notification Service)
     - Trigger
+    - Layers
 
 
 La arquitectura propuesta es:
