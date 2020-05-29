@@ -167,6 +167,19 @@
         ]
       }
     },
+    "MiddyDependenciesNodeModuleLambdaLayer": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/aws-sls-nodejs-users/dev/1590768982584-2020-05-29T16:16:22.584Z/MiddyDependenciesNodeModule.zip"
+        },
+        "LayerName": "MiddyDependenciesNodeModule",
+        "Description": "user dependencies"
+      }
+    },
     "BeneficiaryLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -174,7 +187,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-sls-nodejs-users/dev/1590447021427-2020-05-25T22:50:21.427Z/aws-sls-nodejs-users.zip"
+          "S3Key": "serverless/aws-sls-nodejs-users/dev/1590768982584-2020-05-29T16:16:22.584Z/aws-sls-nodejs-users.zip"
         },
         "FunctionName": "aws-sls-nodejs-users-dev-beneficiary",
         "Handler": "beneficiary/beneficiary.saveSolicitude",
@@ -189,24 +202,30 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
+            "NODE_PATH": "./:/opt/node_modules",
             "USERS_AFILIADOS_TABLE": "users-afiliados-dev",
             "SQS_URL_AFILIADOS": "https://sqs.us-east-1.amazonaws.com/436132033967/SQSQueue1"
           }
-        }
+        },
+        "Layers": [
+          {
+            "Ref": "MiddyDependenciesNodeModuleLambdaLayer"
+          }
+        ]
       },
       "DependsOn": [
         "BeneficiaryLogGroup",
         "IamRoleLambdaExecution"
       ]
     },
-    "BeneficiaryLambdaVersionwqnmtAxwkstHr5gWnoO6EPjMne3GlXgjhB1cT0mE": {
+    "BeneficiaryLambdaVersionOebSNK4U4wIxG3h2cC63ewgVpNGaNhCUPqRER7MUrE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BeneficiaryLambdaFunction"
         },
-        "CodeSha256": "9qVAlKFT2bTk7watiaq/RQzo5qqjlXqw27i1xo6SVzc="
+        "CodeSha256": "8CNqRuMB1sPejkxh7lh7REGLPt5oOzO+ZQAw1Fh0CBo="
       }
     },
     "NotificationLambdaFunction": {
@@ -216,7 +235,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-sls-nodejs-users/dev/1590447021427-2020-05-25T22:50:21.427Z/aws-sls-nodejs-users.zip"
+          "S3Key": "serverless/aws-sls-nodejs-users/dev/1590768982584-2020-05-29T16:16:22.584Z/aws-sls-nodejs-users.zip"
         },
         "FunctionName": "aws-sls-nodejs-users-dev-notification",
         "Handler": "notification/notification.notification",
@@ -231,24 +250,30 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
+            "NODE_PATH": "./:/opt/node_modules",
             "USERS_AFILIADOS_TABLE": "users-afiliados-dev",
             "SQS_URL_AFILIADOS": "https://sqs.us-east-1.amazonaws.com/436132033967/SQSQueue1"
           }
-        }
+        },
+        "Layers": [
+          {
+            "Ref": "MiddyDependenciesNodeModuleLambdaLayer"
+          }
+        ]
       },
       "DependsOn": [
         "NotificationLogGroup",
         "IamRoleLambdaExecution"
       ]
     },
-    "NotificationLambdaVersion7ADnQ03lF29E49fQBffItSFqlfpokKcTX2ymuANdm3I": {
+    "NotificationLambdaVersionx7GwTg6V2eA9VVOS3GLN4zCFaYQivYsKmJNM3zcYQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "NotificationLambdaFunction"
         },
-        "CodeSha256": "9qVAlKFT2bTk7watiaq/RQzo5qqjlXqw27i1xo6SVzc="
+        "CodeSha256": "8CNqRuMB1sPejkxh7lh7REGLPt5oOzO+ZQAw1Fh0CBo="
       }
     },
     "ApiGatewayRestApi": {
@@ -289,7 +314,7 @@
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         },
-        "ApiKeyRequired": false,
+        "ApiKeyRequired": true,
         "AuthorizationType": "NONE",
         "Integration": {
           "IntegrationHttpMethod": "POST",
@@ -321,7 +346,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1590447014854": {
+    "ApiGatewayDeployment1590768970746": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -332,6 +357,50 @@
       "DependsOn": [
         "ApiGatewayMethodSavesolicitudePost"
       ]
+    },
+    "ApiGatewayApiKey1": {
+      "Type": "AWS::ApiGateway::ApiKey",
+      "Properties": {
+        "Enabled": true,
+        "Name": "API_KEY_DEV",
+        "StageKeys": [
+          {
+            "RestApiId": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "StageName": "dev"
+          }
+        ]
+      },
+      "DependsOn": "ApiGatewayDeployment1590768970746"
+    },
+    "ApiGatewayUsagePlan": {
+      "Type": "AWS::ApiGateway::UsagePlan",
+      "DependsOn": "ApiGatewayDeployment1590768970746",
+      "Properties": {
+        "ApiStages": [
+          {
+            "ApiId": {
+              "Ref": "ApiGatewayRestApi"
+            },
+            "Stage": "dev"
+          }
+        ],
+        "Description": "Usage plan for aws-sls-nodejs-users dev stage",
+        "UsagePlanName": "aws-sls-nodejs-users-dev"
+      }
+    },
+    "ApiGatewayUsagePlanKey1": {
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+      "Properties": {
+        "KeyId": {
+          "Ref": "ApiGatewayApiKey1"
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": {
+          "Ref": "ApiGatewayUsagePlan"
+        }
+      }
     },
     "BeneficiaryLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
@@ -399,16 +468,22 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
+    "MiddyDependenciesNodeModuleLambdaLayerQualifiedArn": {
+      "Description": "Current Lambda layer version",
+      "Value": {
+        "Ref": "MiddyDependenciesNodeModuleLambdaLayer"
+      }
+    },
     "BeneficiaryLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BeneficiaryLambdaVersionwqnmtAxwkstHr5gWnoO6EPjMne3GlXgjhB1cT0mE"
+        "Ref": "BeneficiaryLambdaVersionOebSNK4U4wIxG3h2cC63ewgVpNGaNhCUPqRER7MUrE"
       }
     },
     "NotificationLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "NotificationLambdaVersion7ADnQ03lF29E49fQBffItSFqlfpokKcTX2ymuANdm3I"
+        "Ref": "NotificationLambdaVersionx7GwTg6V2eA9VVOS3GLN4zCFaYQivYsKmJNM3zcYQ"
       }
     },
     "ServiceEndpoint": {

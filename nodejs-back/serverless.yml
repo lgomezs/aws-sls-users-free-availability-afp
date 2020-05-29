@@ -7,9 +7,9 @@ custom:
     stages:
       - dev
 
-plugins:
-  - serverless-offline
-  - serverless-dynamodb-local
+#plugins:
+ # - serverless-offline
+ # - serverless-dynamodb-local
 
 provider:
   name: aws
@@ -29,10 +29,22 @@ provider:
       Resource:
         - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
   environment:
+    NODE_PATH: "./:/opt/node_modules"
     USERS_AFILIADOS_TABLE: ${self:custom.tableName}
     SQS_URL_AFILIADOS: ${self:custom.sqsUrlAfiliados}
   iamManagedPolicies:
     - 'arn:aws:iam::aws:policy/AmazonSQSFullAccess'
+
+    
+package:
+  exclude:
+    - user_layer_common/**   
+
+layers:
+  MiddyDependenciesNodeModule:
+    path: user_layer_common
+    description: "user dependencies"
+
 
 functions:
   beneficiary:
@@ -42,8 +54,12 @@ functions:
           path: saveSolicitude
           method: post
           private: true
+    layers:
+      - {Ref: MiddyDependenciesNodeModuleLambdaLayer} 
   notification:
     handler: notification/notification.notification
+    layers:
+      - {Ref: MiddyDependenciesNodeModuleLambdaLayer} 
   
 
 resources:
