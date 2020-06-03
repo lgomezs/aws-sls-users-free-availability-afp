@@ -1,0 +1,8 @@
+service: user_layer_common
+
+custom:
+  sqsUrlAfiliados: 'https://sqs.us-east-1.amazonaws.com/436132033967/SQSQueue1'
+
+functions:
+  commons:
+    handler: commons.sendMessageQuee

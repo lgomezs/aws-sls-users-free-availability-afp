@@ -12,9 +12,9 @@ const USERS_AFILIADOS_TABLE = process.env.USERS_AFILIADOS_TABLE;
 const IS_OFFLINE = process.env.IS_OFFLINE;
 
 
-let dynamoDB;
+let dynamoDB = new AWS.DynamoDB.DocumentClient();
 
-if (IS_OFFLINE === 'true') {
+/* if (IS_OFFLINE === 'true') {
     dynamoDB = new AWS.DynamoDB.DocumentClient({
         region: 'localhost',
         endpoint: 'http://localhost:8000'
@@ -22,7 +22,7 @@ if (IS_OFFLINE === 'true') {
 } else {
     console.log("AWS.DynamoDB.DocumentClient()");
     dynamoDB = new AWS.DynamoDB.DocumentClient();
-}
+}*/
 
 
 module.exports.notification = (event, context, callback) => {
