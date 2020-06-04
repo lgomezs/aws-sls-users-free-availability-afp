@@ -1,6 +1,7 @@
 # Aplicacion con aws serverless (API Gateway, SQS, SNS, Trigger)
 
-Este modelo ejemplo de aplicacion recibe una peticion POST, para procesar los tramites de retiros de fondos de AFP's.
+Este modelo ejemplo de aplicacion recibe una peticion POST, para simular recibir los tramites de retiros de fondos de AFP's y notificar por 
+Email que la solicitud fue aceptada y registrada. 
 
 ## Requerimientos
 
